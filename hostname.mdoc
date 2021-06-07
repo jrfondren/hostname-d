@@ -1,0 +1,51 @@
+.Dd June 7, 2021
+.Dt hostname 3d
+.Os D
+.Sh NAME
+.Nm hostname
+.Nd Get the environment's hostname with
+.Xr gethostname 2
+.Sh SYNOPSIS
+.Pp
+\fBimport hostname : hostname, hostnamez;\fR
+.Pp
+\fBimmutable string hostname;\fR
+.Pp
+\fBimmutable char* hostnamez;\fR
+.Sh DESCRIPTION
+The \fBhostname\fR module has a shared static initializer that calls
+.Xr gethostname 2
+once, into a static buffer, and then initializes \fBstring\fR and \fBimmutable char*\fR typed variables
+with the contents of that buffer, without copying.
+.Pp
+A failure of
+.Xr gethostname 2
+is treated as an unrecoverable error, guarded by an assert().
+.Sh EXAMPLE
+.Bd -literal
+#! /usr/bin/env dub
+/+ dub.sdl:
+    dependency "hostname" version="~>0.1.0"
++/
+
+void main() {
+    import std.stdio : writeln;
+    import hostname : hostname;
+
+    writeln("hostname: ", hostname);
+}
+.Ed
+.Sh SEE ALSO
+.Xr gethostname 2 ,
+.Xr Sys::Hostname 3pm
+.Sh FUTURE DIRECTIONS
+This module hard-codes the value of \fBHOST_NAME_MAX\fR. When importC is available, that should be used instead.
+.Pp
+Perhaps the statically initialized hostnames should be in an optional
+submodule, separate from a module that just wraps
+.Xr gethostname 2 ?
+The current implementation is what I've wanted 100% of the time, but in other environments hostnames can be subject to change.
+.Sh COLOPHON
+This page is part of the 0.1.0 release of the \fUhostname\fR DUB package.
+This package can be found at \%https://code.dlang.org/packages/hostname/.
+Issues should be submitted to \%https://github.com/jrfondren/hostname-d/issues.

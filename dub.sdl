@@ -1,0 +1,5 @@
+name "hostname"
+description "Get the current hostname with gethostname(2)"
+authors "Julian Fondren"
+copyright "Copyright © 2021, Julian Fondren"
+license "MIT"
