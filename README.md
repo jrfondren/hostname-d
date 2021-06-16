@@ -13,6 +13,8 @@ gethostname(2)
 
 **immutable char\* hostnamez;**
 
+**char\* hostnamez;** // -betterC only has this one
+
 # DESCRIPTION
 
 The **hostname** module has a shared static initializer that calls
@@ -28,7 +30,7 @@ is treated as an unrecoverable error, guarded by an assert().
 
 	#! /usr/bin/env dub
 	/+ dub.sdl:
-	    dependency "hostname" version="~>0.1.0"
+	    dependency "hostname" version="~>0.1.1"
 	+/
 	
 	void main() {
@@ -36,6 +38,21 @@ is treated as an unrecoverable error, guarded by an assert().
 	    import hostname : hostname;
 	
 	    writeln("hostname: ", hostname);
+	}
+
+# BETTERC EXAMPLE
+
+	#! /usr/bin/env dub
+	/+ dub.sdl:
+	    dependency "hostname" version="~>0.1.1"
+	    buildOptions "betterC"
+	+/
+	
+	extern(C) void main() {
+	    import core.stdc.stdio : printf;
+	    import hostname : hostnamez;
+	
+	    printf("hostname: %s\n", hostnamez);
 	}
 
 # SEE ALSO
@@ -54,7 +71,7 @@ The current implementation is what I've wanted 100% of the time, but in other en
 
 # COLOPHON
 
-This page is part of the 0.1.0 release of the hostname DUB package.
+This page is part of the 0.1.1 release of the hostname DUB package.
 This package can be found at https://code.dlang.org/packages/hostname/.
 Issues should be submitted to https://github.com/jrfondren/hostname-d/issues.
 

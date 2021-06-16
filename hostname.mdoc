@@ -12,6 +12,8 @@
 \fBimmutable string hostname;\fR
 .Pp
 \fBimmutable char* hostnamez;\fR
+.Pp
+\fBchar* hostnamez;\fR // -betterC only has this one
 .Sh DESCRIPTION
 The \fBhostname\fR module has a shared static initializer that calls
 .Xr gethostname 2
@@ -25,7 +27,7 @@ is treated as an unrecoverable error, guarded by an assert().
 .Bd -literal
 #! /usr/bin/env dub
 /+ dub.sdl:
-    dependency "hostname" version="~>0.1.0"
+    dependency "hostname" version="~>0.1.1"
 +/
 
 void main() {
@@ -33,6 +35,21 @@ void main() {
     import hostname : hostname;
 
     writeln("hostname: ", hostname);
+}
+.Ed
+.Sh BETTERC EXAMPLE
+.Bd -literal
+#! /usr/bin/env dub
+/+ dub.sdl:
+    dependency "hostname" version="~>0.1.1"
+    buildOptions "betterC"
++/
+
+extern(C) void main() {
+    import core.stdc.stdio : printf;
+    import hostname : hostnamez;
+
+    printf("hostname: %s\\n", hostnamez);
 }
 .Ed
 .Sh SEE ALSO
@@ -46,6 +63,6 @@ submodule, separate from a module that just wraps
 .Xr gethostname 2 ?
 The current implementation is what I've wanted 100% of the time, but in other environments hostnames can be subject to change.
 .Sh COLOPHON
-This page is part of the 0.1.0 release of the \fUhostname\fR DUB package.
+This page is part of the 0.1.1 release of the \fUhostname\fR DUB package.
 This package can be found at \%https://code.dlang.org/packages/hostname/.
 Issues should be submitted to \%https://github.com/jrfondren/hostname-d/issues.
