@@ -55,7 +55,7 @@ extern(C) void main() {
 .Xr Sys::Hostname 3pm
 .Sh BUGS
 Due to issue #22031 (crt_constructor functions can't initialize immutable/const variables) the \fBhostname\fR
-and \fBhostnamez\fR variables aren't immutable when the library is compile with -betterC.
+and \fBhostnamez\fR variables aren't immutable when the library is compiled with -betterC.
 .Sh FUTURE DIRECTIONS
 This module hard-codes the value of \fBHOST_NAME_MAX\fR. When importC is available, that should be used instead.
 .Pp

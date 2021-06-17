@@ -61,7 +61,7 @@ Sys::Hostname(3pm)
 # BUGS
 
 Due to issue #22031 (crt\_constructor functions can't initialize immutable/const variables) the **hostname**
-and **hostnamez** variables aren't immutable when the library is compile with -betterC.
+and **hostnamez** variables aren't immutable when the library is compiled with -betterC.
 
 # FUTURE DIRECTIONS
 
