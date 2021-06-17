@@ -13,8 +13,6 @@ gethostname(2)
 
 **immutable char\* hostnamez;**
 
-**char\* hostnamez;** // -betterC only has this one
-
 # DESCRIPTION
 
 The **hostname** module has a shared static initializer that calls
@@ -30,7 +28,7 @@ is treated as an unrecoverable error, guarded by an assert().
 
 	#! /usr/bin/env dub
 	/+ dub.sdl:
-	    dependency "hostname" version="~>0.1.1"
+	    dependency "hostname" version="~>0.1.2"
 	+/
 	
 	void main() {
@@ -44,7 +42,7 @@ is treated as an unrecoverable error, guarded by an assert().
 
 	#! /usr/bin/env dub
 	/+ dub.sdl:
-	    dependency "hostname" version="~>0.1.1"
+	    dependency "hostname" version="~>0.1.2"
 	    buildOptions "betterC"
 	+/
 	
@@ -60,6 +58,11 @@ is treated as an unrecoverable error, guarded by an assert().
 gethostname(2),
 Sys::Hostname(3pm)
 
+# BUGS
+
+Due to issue #22031 (crt\_constructor functions can't initialize immutable/const variables) the **hostname**
+and **hostnamez** variables aren't immutable when the library is compile with -betterC.
+
 # FUTURE DIRECTIONS
 
 This module hard-codes the value of **HOST\_NAME\_MAX**. When importC is available, that should be used instead.
@@ -71,7 +74,7 @@ The current implementation is what I've wanted 100% of the time, but in other en
 
 # COLOPHON
 
-This page is part of the 0.1.1 release of the hostname DUB package.
+This page is part of the 0.1.2 release of the hostname DUB package.
 This package can be found at https://code.dlang.org/packages/hostname/.
 Issues should be submitted to https://github.com/jrfondren/hostname-d/issues.
 
